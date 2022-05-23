@@ -12,30 +12,26 @@ namespace filaBD
     {
         static void Main(string[] args)
         {
-            MySqlConnection conexao = new MySqlConnection("server=localhost;database=fila;uid=root;password=root");
-            try
+            string sair;
+            DAO Dao = new DAO();
+            Pessoa Pessoa = new Pessoa();
+
+            do
             {
-                conexao.Open();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("erro");
-            }
+                Console.WriteLine("1 - cadastrar \n 2- atualizar \n 3- deletar \n 4-consultar \n q - sair");
+                sair = Console.ReadLine().ToUpper();
+                switch (sair)
+                {
+                    case "1":
+                        Pessoa.cadastro();
+                        Dao.insert(Pessoa);
+                        break;
+                    case "2":
+                        Dao.select();
+                        break;
 
-            DAO Daoo = new DAO();
-            
-            MySqlCommand cmd = new MySqlCommand(sql, conexao);
-
-            Daoo.cadastrar();
-            Daoo.insert();
-
-            if (cmd.ExecuteNonQuery() > 0)
-            {
-                Console.WriteLine("cadastro concluido");
-                Console.ReadKey();
-            }
-
+                }
+            } while (sair != "Q");
         }
     }
 }

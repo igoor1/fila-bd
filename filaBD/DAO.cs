@@ -10,41 +10,47 @@ namespace filaBD
 {
     class DAO
     {
-        string cpf, nome, sexo, idade, endereco;
+        public MySqlConnection conexao;
+        public MySqlCommand cmd;
 
-
-        public void cadastrar()
+        public DAO()
         {
-            Console.WriteLine("cpf:");
-            cpf = Console.ReadLine();
-
-            Console.WriteLine("nome:");
-            nome = Console.ReadLine();
-
-            Console.WriteLine("sexo:");
-            sexo = Console.ReadLine();
-
-            Console.WriteLine("idade:");
-            idade = Console.ReadLine();
-                        Console.WriteLine("nome:");
-            nome = Console.ReadLine();
-
-            Console.WriteLine("endereco:");
-            endereco = Console.ReadLine();
+            conexao = new MySqlConnection("server=localhost;database=fila;uid=root;password=root");
+            try
+            {
+                conexao.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("erro");
+            }
 
         }
 
-        public void insert()
+        public void insert(Pessoa p)
         {
-            String sql = "insert into paciente values(null,@cpf,@nome,@sexo,@idade,@endereco)";
+            String sql = "insert into paciente (cpf, nome, sexo, idade, email, preferencial) values(@cpf,@nome,@sexo,@idade,@email,@preferencial)";
             cmd = new MySqlCommand(sql, conexao);
-            cmd.Parameters.AddWithValue("@cpf", cpf);
-            cmd.Parameters.AddWithValue("@nome", nome);
-            cmd.Parameters.AddWithValue("@sexo",sexo);
-            cmd.Parameters.AddWithValue("@idade",idade);
-            cmd.Parameters.AddWithValue("@endereco", endereco);
+            cmd.Parameters.AddWithValue("@cpf", p.Cpf);
+            cmd.Parameters.AddWithValue("@nome", p.Nome);
+            cmd.Parameters.AddWithValue("@sexo", p.Sexo);
+            cmd.Parameters.AddWithValue("@idade", p.Idade);
+            cmd.Parameters.AddWithValue("@email", p.Email);
+            cmd.Parameters.AddWithValue("@preferencial", p.Preferencial);
+            cmd.ExecuteNonQuery();
         }
 
-
+        public void select()
+        {
+            String sql = "SELECT * from paciente";
+            cmd = new MySqlCommand(sql, conexao);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                Console.WriteLine("nome: {0}, sexo:{1}, idade:{2}, email:{3}, preferencial:{4}", rdr["nome"], rdr["sexo"], rdr["idade"], rdr["email"], rdr["preferencial"]);
+            }
+            Console.ReadKey();
+        }
     }
 }
