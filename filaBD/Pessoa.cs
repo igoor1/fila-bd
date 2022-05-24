@@ -50,6 +50,5 @@ namespace filaBD
             Console.WriteLine("Digite se é preferencial(s/n):");
             Preferencial = Console.ReadLine();
         }
-
     }
 }

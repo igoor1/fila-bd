@@ -12,26 +12,29 @@ namespace filaBD
     {
         static void Main(string[] args)
         {
-            string sair;
+            string op;
             DAO Dao = new DAO();
-            Pessoa Pessoa = new Pessoa();
+            Pessoa P = new Pessoa();
+            Menu menu = new Menu();
 
             do
             {
-                Console.WriteLine("1 - cadastrar \n 2- atualizar \n 3- deletar \n 4-consultar \n q - sair");
-                sair = Console.ReadLine().ToUpper();
-                switch (sair)
+                op = menu.menu();
+                switch (op)
                 {
                     case "1":
-                        Pessoa.cadastro();
-                        Dao.insert(Pessoa);
+                        P.cadastro();
+                        Dao.insert(P);
                         break;
                     case "2":
                         Dao.select();
                         break;
-
+                    case "3":
+                        break;
+                    case "4":
+                        break;
                 }
-            } while (sair != "Q");
+            } while (op != "Q");
         }
     }
 }

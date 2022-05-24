@@ -43,7 +43,7 @@ namespace filaBD
 
         public void select()
         {
-            String sql = "SELECT * from paciente";
+            String sql = "SELECT * from paciente order by preferencial desc;";
             cmd = new MySqlCommand(sql, conexao);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
@@ -51,6 +51,7 @@ namespace filaBD
                 Console.WriteLine("nome: {0}, sexo:{1}, idade:{2}, email:{3}, preferencial:{4}", rdr["nome"], rdr["sexo"], rdr["idade"], rdr["email"], rdr["preferencial"]);
             }
             Console.ReadKey();
+            conexao.Close();
         }
     }
 }
