@@ -13,12 +13,13 @@ namespace filaBD
         static void Main(string[] args)
         {
             string op;
-            DAO Dao = new DAO();
+            DAO Dao;
             Pessoa P = new Pessoa();
             Menu menu = new Menu();
 
             do
             {
+                Dao = new DAO();
                 op = menu.menu();
                 switch (op)
                 {
@@ -30,8 +31,12 @@ namespace filaBD
                         Dao.select();
                         break;
                     case "3":
+                        P.atualizar();
+                        Dao.atualiza(P);
                         break;
                     case "4":
+                        P.delete();
+                        Dao.delete(P);
                         break;
                 }
             } while (op != "Q");

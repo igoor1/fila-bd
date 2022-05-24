@@ -36,8 +36,7 @@ namespace filaBD
         public void atualizar()
         {
             Console.Clear();
-
-            Console.WriteLine("Digite o Cpf:");
+            Console.WriteLine("Digite o Cpf que quer atualizar:");
             Cpf = Console.ReadLine();
             Console.WriteLine("Digite o Nome:");
             Nome = Console.ReadLine();
@@ -49,6 +48,12 @@ namespace filaBD
             Email = Console.ReadLine();
             Console.WriteLine("Digite se é preferencial(s/n):");
             Preferencial = Console.ReadLine();
+        }
+
+        public void delete()
+        {
+            Console.WriteLine("cpf");
+            Cpf = Console.ReadLine();
         }
     }
 }
