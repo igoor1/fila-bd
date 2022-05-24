@@ -1,0 +1,23 @@
+create database fila;
+
+use fila;
+
+create table paciente(
+id int primary key auto_increment,
+cpf varchar(11) not null,
+nome varchar(90) not null,
+sexo char(1) not null,
+idade varchar(3),
+email varchar(50),
+preferencial char(1)
+);
+
+drop table paciente;
+
+select * from paciente;
+
+insert into paciente (cpf, nome, sexo, idade, endereco) values("2415","uhsxu","m","54","jbhbvwsazhujwq");
+
+delete from fila where cpf="4555";
+
+desc paciente;
