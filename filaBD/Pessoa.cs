@@ -52,7 +52,7 @@ namespace filaBD
 
         public void delete()
         {
-            Console.WriteLine("cpf");
+            Console.WriteLine("\n Digite qual cpf você deseja excluir:");
             Cpf = Console.ReadLine();
         }
     }

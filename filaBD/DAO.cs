@@ -24,6 +24,7 @@ namespace filaBD
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("erro");
+                Console.ReadKey();
             }
 
         }
@@ -50,11 +51,12 @@ namespace filaBD
         {
             Console.Clear();
 
-            String sql = "SELECT * from paciente order by preferencial";
+            String sql = "SELECT * from paciente order by preferencial desc";
             cmd = new MySqlCommand(sql, conexao);
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
+                Console.WriteLine("Paciente: {0}", rdr["id"]);
                 Console.WriteLine("Nome: {0}, \nSexo:{1}, \nIdade:{2}, \nEmail:{3}, \nPreferencial:{4} \n", rdr["nome"], rdr["sexo"], rdr["idade"], rdr["email"], rdr["preferencial"]);
             }
             Console.ReadKey();
@@ -81,27 +83,49 @@ namespace filaBD
 
         public void delete(Pessoa p)
         {
-            Console.Clear();
-           /* string sql1 = "select cpf from paciente;";
-            cmd = new MySqlCommand(sql1, conexao);
-            MySqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            try
             {
-                Console.WriteLine("cpf: {0}\n", rdr["cpf"]);
+                conexao.Open();
             }
+            catch
+            {
+                Console.WriteLine("conexao já aberta");
+                Console.ReadKey();
+            }
+            Console.Clear();
 
-            conexao.Close();
-            conexao.Open();*/
-
-            String sql = "DELETE from paciente where @cpf";
+            String sql = "DELETE from paciente where cpf=@cpf";
             cmd = new MySqlCommand(sql, conexao);
             cmd.Parameters.AddWithValue("@cpf", p.Cpf);
             cmd.ExecuteNonQuery();
-
             Console.Clear();
             Console.WriteLine("Paciente deletado");
             Console.ReadKey();
             conexao.Close();
+        }
+
+        public void exibircpf()
+        {
+            Console.Clear();
+
+            String sql = "SELECT cpf,nome from paciente";
+            cmd = new MySqlCommand(sql, conexao);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            
+            if (rdr.HasRows)
+            {
+                while (rdr.Read())
+                {
+                    Console.WriteLine("cpf: {0}, Nome:{1}", rdr["cpf"], rdr["nome"]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("nada cadastrado");
+            }
+            Console.ReadKey();
+            conexao.Close();
+
         }
     }
 }

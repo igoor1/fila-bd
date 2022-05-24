@@ -35,6 +35,7 @@ namespace filaBD
                         Dao.atualiza(P);
                         break;
                     case "4":
+                        Dao.exibircpf();
                         P.delete();
                         Dao.delete(P);
                         break;
